@@ -1,6 +1,10 @@
 import 'package:moment/moment.dart';
 
 main() {
-  var awesome = new Awesome();
-  print('awesome: ${awesome.isAwesome}');
+  // Parsing
+  Moment().add(1, Unit.day);
+  Moment().subtract(2, Unit.day);
+
+  // Formatting
+  Moment().format('yyyy-MM-dd');
 }
