@@ -18,26 +18,27 @@ class Moment {
 
   DateTime _dateTime;
 
-  Moment([dynamic input]) {
-    if (input == null) {
-      Moment.fromDateTime(DateTime.now());
-    } else if (input is int) {
-      Moment.fromMilliseconds(input);
-    } else if (input is String) {
-      Moment.fromDateTime(DateTime.parse(input));
-    } else if (input is DateTime) {
-      Moment.fromDateTime(input);
-    }
-  }
-
   Moment.fromDateTime(this._dateTime);
 
-  Moment.fromMicroseconds(int microseconds) {
-    _dateTime = DateTime.fromMillisecondsSinceEpoch(microseconds);
+  Moment(String pattern) {
+    _dateTime = DateTime.parse(pattern);
+  }
+
+  Moment.now() {
+    _dateTime = DateTime.now();
+  }
+
+  Moment.fromSeconds(int seconds) {
+    _dateTime = DateTime.fromMillisecondsSinceEpoch(
+        seconds * Duration.millisecondsPerSecond);
   }
 
   Moment.fromMilliseconds(int milliseconds) {
     _dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
+  }
+
+  Moment.fromMicroseconds(int microseconds) {
+    _dateTime = DateTime.fromMicrosecondsSinceEpoch(microseconds);
   }
 
   Moment add(
@@ -133,7 +134,7 @@ class Moment {
       default:
         return this;
     }
-    return Moment(dateTime);
+    return Moment.fromDateTime(dateTime);
   }
 
   Moment endOf(MomentUnit unit) {
@@ -181,7 +182,7 @@ class Moment {
       default:
         return this;
     }
-    return Moment(dateTime).subtract(microseconds: 1);
+    return Moment.fromDateTime(dateTime).subtract(microseconds: 1);
   }
 
   String format(String pattern) {
@@ -190,6 +191,9 @@ class Moment {
 
   /// The year
   int get year => _dateTime.year;
+
+  /// The quarter
+  int get quarter => (_dateTime.month - 1) ~/ 3 + 1;
 
   /// The month
   int get month => _dateTime.month;
