@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-enum Unit {
+enum MomentUnit {
   second,
   minute,
   hour,
@@ -8,36 +8,82 @@ enum Unit {
 }
 
 class Moment {
-  int timestamp;
+  DateTime _dateTime;
+
   Moment([dynamic input]) {
     if (input == null) {
-      timestamp = DateTime.now().millisecondsSinceEpoch;
+      Moment.fromDateTime(DateTime.now());
     } else if (input is int) {
-      timestamp = input;
-    } else if (input is String) {}
+      Moment.fromMilliseconds(input);
+    } else if (input is String) {
+      Moment.fromDateTime(DateTime.parse(input));
+    }
   }
 
-  var mapper = {
-    Unit.second: 1,
-    Unit.minute: 60,
-    Unit.hour: 3600,
-    Unit.day: 86400,
-  };
+  Moment.fromDateTime(this._dateTime);
 
-  Moment add(int count, Unit unit) {
-    return Moment(timestamp + count * mapper[unit]);
+  Moment.fromMicroseconds(int microseconds) {
+    _dateTime = DateTime.fromMillisecondsSinceEpoch(microseconds);
   }
 
-  Moment subtract(int count, Unit unit) {
-    return Moment(timestamp - count * mapper[unit]);
+  Moment.fromMilliseconds(int milliseconds) {
+    _dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
   }
 
-  Moment startOf(Unit unit) {
-    return Moment(timestamp);
+  // var mapper = {
+  //   MomentUnit.second: Duration.millisecondsPerSecond,
+  //   MomentUnit.minute: Duration.millisecondsPerMinute,
+  //   MomentUnit.hour: Duration.millisecondsPerHour,
+  //   MomentUnit.day: Duration.millisecondsPerDay
+  // };
+
+  Moment add(
+      {int years: 0,
+      int quarters: 0,
+      int months: 0,
+      int weeks: 0,
+      int days: 0,
+      int hours: 0,
+      int minutes: 0,
+      int seconds: 0,
+      int milliseconds: 0,
+      int microseconds: 0}) {
+    var dateTime = DateTime(
+        _dateTime.year + years,
+        _dateTime.month + months,
+        _dateTime.day + days,
+        _dateTime.hour + hours,
+        _dateTime.minute + minutes,
+        _dateTime.second + seconds,
+        _dateTime.millisecond + milliseconds,
+        _dateTime.microsecond + microseconds);
+    return Moment.fromDateTime(dateTime);
   }
 
-  format(String pattern) {
-    return DateFormat(pattern)
-        .format(DateTime.fromMillisecondsSinceEpoch(timestamp));
+  Moment subtract(
+      {int years: 0,
+      int quarters: 0,
+      int months: 0,
+      int weeks: 0,
+      int days: 0,
+      int hours: 0,
+      int minutes: 0,
+      int seconds: 0,
+      int milliseconds: 0,
+      int microseconds: 0}) {
+    var dateTime = DateTime(
+        _dateTime.year - years,
+        _dateTime.month - months,
+        _dateTime.day - days,
+        _dateTime.hour - hours,
+        _dateTime.minute - minutes,
+        _dateTime.second - seconds,
+        _dateTime.millisecond - milliseconds,
+        _dateTime.microsecond - microseconds);
+    return Moment.fromDateTime(dateTime);
+  }
+
+  String format(String pattern) {
+    return DateFormat(pattern).format(_dateTime);
   }
 }
