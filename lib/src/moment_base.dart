@@ -53,8 +53,8 @@ class Moment {
       int microseconds: 0}) {
     var dateTime = DateTime(
         _dateTime.year + years,
-        _dateTime.month + months,
-        _dateTime.day + days,
+        _dateTime.month + months + quarters * monthPerQuarter,
+        _dateTime.day + days + weeks * DateTime.daysPerWeek,
         _dateTime.hour + hours,
         _dateTime.minute + minutes,
         _dateTime.second + seconds,
@@ -76,8 +76,8 @@ class Moment {
       int microseconds: 0}) {
     var dateTime = DateTime(
         _dateTime.year - years,
-        _dateTime.month - months,
-        _dateTime.day - days,
+        _dateTime.month - months - quarters * monthPerQuarter,
+        _dateTime.day - days - weeks * DateTime.daysPerWeek,
         _dateTime.hour - hours,
         _dateTime.minute - minutes,
         _dateTime.second - seconds,
