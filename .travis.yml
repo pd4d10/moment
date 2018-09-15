@@ -6,3 +6,4 @@ dart:
 dart_task:
   - test: --platform vm
   - test: --platform chrome
+sudo: required # https://github.com/travis-ci/travis-ci/issues/8836#issuecomment-356362524
