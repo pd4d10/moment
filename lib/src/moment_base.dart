@@ -25,6 +25,8 @@ class Moment {
       Moment.fromMilliseconds(input);
     } else if (input is String) {
       Moment.fromDateTime(DateTime.parse(input));
+    } else if (input is DateTime) {
+      Moment.fromDateTime(input);
     }
   }
 
@@ -185,4 +187,36 @@ class Moment {
   String format(String pattern) {
     return DateFormat(pattern).format(_dateTime);
   }
+
+  /// The year
+  int get year => _dateTime.year;
+
+  /// The month
+  int get month => _dateTime.month;
+
+  /// The day of the month
+  int get day => _dateTime.day;
+
+  /// The day of the week
+  int get weekday => _dateTime.weekday;
+
+  /// TODO: The day of the year
+  // int get dayOfYear {
+  //   return 0;
+  // }
+
+  /// The hour of the day
+  int get hour => _dateTime.hour;
+
+  /// The minute
+  int get minute => _dateTime.minute;
+
+  /// The second
+  int get second => _dateTime.second;
+
+  /// The millisecond
+  int get millisecond => _dateTime.millisecond;
+
+  /// The microsecond
+  int get microsecond => _dateTime.microsecond;
 }
