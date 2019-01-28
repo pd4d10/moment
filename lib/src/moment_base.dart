@@ -90,7 +90,7 @@ class Moment {
   int get startMonthOfQuarter => _dateTime.month - ((_dateTime.month - 1) % 3);
   int get startDayOfWeek => _dateTime.day - _dateTime.weekday + 1;
 
-  Moment startOf(MomentUnit unit) {
+  DateTime startOfAsDateTime(MomentUnit unit) {
     DateTime dateTime;
     switch (unit) {
       case MomentUnit.year:
@@ -132,12 +132,12 @@ class Moment {
             _dateTime.millisecond);
         break;
       default:
-        return this;
+        return dateTime;
     }
-    return Moment.fromDateTime(dateTime);
+    return dateTime;
   }
 
-  Moment endOf(MomentUnit unit) {
+  DateTime endOfAsDateTime(MomentUnit unit) {
     DateTime dateTime;
     switch (unit) {
       case MomentUnit.year:
@@ -180,8 +180,18 @@ class Moment {
             _dateTime.millisecond + 1);
         break;
       default:
-        return this;
+        return dateTime;
     }
+    return dateTime;
+  }
+
+  Moment startOf(MomentUnit unit) {
+    DateTime dateTime = startOfAsDateTime(unit);
+    return Moment.fromDateTime(dateTime);
+  }
+
+  Moment endOf(MomentUnit unit) {
+    DateTime dateTime = endOfAsDateTime(unit);
     return Moment.fromDateTime(dateTime).subtract(microseconds: 1);
   }
 
