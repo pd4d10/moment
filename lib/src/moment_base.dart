@@ -88,7 +88,8 @@ class Moment {
   }
 
   int get startMonthOfQuarter => _dateTime.month - ((_dateTime.month - 1) % 3);
-  int get startDayOfWeek => _dateTime.day - _dateTime.weekday + 1;
+  DateTime get firstDayOfTheweek =>
+      _dateTime.subtract(new Duration(days: _dateTime.weekday));
 
   DateTime startOfAsDateTime(MomentUnit unit) {
     DateTime dateTime;
@@ -103,8 +104,8 @@ class Moment {
         dateTime = DateTime(_dateTime.year, _dateTime.month);
         break;
       case MomentUnit.week:
-        dateTime =
-            DateTime(_dateTime.year, startDayOfWeek + DateTime.daysPerWeek);
+        dateTime = DateTime(firstDayOfTheweek.year, firstDayOfTheweek.month,
+            firstDayOfTheweek.day + 1);
         break;
       case MomentUnit.day:
         dateTime = DateTime(_dateTime.year, _dateTime.month, _dateTime.day);
@@ -151,8 +152,9 @@ class Moment {
         dateTime = DateTime(_dateTime.year, _dateTime.month + 1);
         break;
       case MomentUnit.week:
-        dateTime =
-            DateTime(_dateTime.year, startDayOfWeek + DateTime.daysPerWeek);
+        dateTime = DateTime(firstDayOfTheweek.year, firstDayOfTheweek.month,
+                firstDayOfTheweek.day + 1)
+            .add(Duration(days: 7));
         break;
       case MomentUnit.day:
         dateTime = DateTime(_dateTime.year, _dateTime.month, _dateTime.day + 1);

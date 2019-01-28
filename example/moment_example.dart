@@ -28,4 +28,10 @@ main() {
   DateTime endOfToday = Moment.now().endOfAsDateTime(MomentUnit.day);
   print(startOfToday.toIso8601String());
   print(endOfToday.toIso8601String());
+
+  DateTime startOfWeek = Moment.now().startOfAsDateTime(MomentUnit.week);
+  DateTime endOfWeek = Moment.now().endOfAsDateTime(MomentUnit.week);
+
+  print(startOfWeek);
+  print(endOfWeek);
 }
