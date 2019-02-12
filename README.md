@@ -1,5 +1,9 @@
 # Moment for Dart
 
+__Notice__: The version published at pub is just a placeholder, not the production use code.
+
+See [discussion issue](https://github.com/pd4d10/moment/issues/2)
+
 Parse, validate, manipulate, and display dates in Dart, with similar API to [momentjs](https://github.com/moment/moment)
 
 ## Usage
