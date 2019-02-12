@@ -23,4 +23,15 @@ main() {
 
   // Display
   m.format('yyyy-MM-dd');
+  
+  DateTime startOfToday = Moment.now().startOfAsDateTime(MomentUnit.day);
+  DateTime endOfToday = Moment.now().endOfAsDateTime(MomentUnit.day);
+  print(startOfToday.toIso8601String());
+  print(endOfToday.toIso8601String());
+
+  DateTime startOfWeek = Moment.now().startOfAsDateTime(MomentUnit.week);
+  DateTime endOfWeek = Moment.now().endOfAsDateTime(MomentUnit.week);
+
+  print(startOfWeek);
+  print(endOfWeek);
 }
